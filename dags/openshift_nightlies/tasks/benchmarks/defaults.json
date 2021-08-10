@@ -3,7 +3,21 @@
         {
             "name": "baseline",
             "workload": "baseline-performance",
-            "command": "./baseline_perf.sh"            
+            "command": "./baseline_perf.sh",
+            "env": {
+                "WATCH_TIME": "5"
+            }
+        },
+        {
+            "name": "logging_test",
+            "workload": "logging",
+            "command": "./run_logging_test.sh",
+            "env": {
+                "DEPLOY_LOGGING": "false",
+                "MESSAGES_PER_SECOND": "1000",
+                "DURATION": "20",
+                "TIMEOUT": "1500"
+            }
         }
     ]
 }
