@@ -161,14 +161,13 @@ default_args = {
     # 'trigger_rule': 'all_success'
 }
 with DAG(
-    'tutorial',
-    default_args=default_args,
-    description='A simple tutorial DAG',
-    schedule_interval=timedelta(days=1),
-    start_date=days_ago(2),
-    tags=['example'],
+        'experimental',
+        default_args=default_args,
+        description='Experimental DAG',
+        schedule_interval=None,
+        start_date=datetime(2021, 1, 1),
+        tags=['example'],
 ) as dag:
-
     # t1, t2 and t3 are examples of tasks created by instantiating operators
     t1 = BashOperator(
         task_id='print_date',
