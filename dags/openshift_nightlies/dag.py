@@ -21,7 +21,7 @@ from openshift_nightlies.tasks.install.baremetal import jetski
 from openshift_nightlies.tasks.benchmarks import e2e
 from openshift_nightlies.tasks.utils import scale_ci_diagnosis
 from openshift_nightlies.tasks.index import status
-from openshift_nightlies.util import var_loader, manifest, constants
+from openshift_nightlies.util import var_loader, manifest, constants, executor
 from abc import ABC, abstractmethod
 
 # Set Task Logger to INFO for better task logs
@@ -161,9 +161,9 @@ default_args = {
     # 'trigger_rule': 'all_success'
 }
 with DAG(
-        'experimental',
+        'Example',
         default_args=default_args,
-        description='Experimental DAG',
+        description='Example DAG',
         schedule_interval=None,
         start_date=datetime(2021, 1, 1),
         tags=['example'],
@@ -213,3 +213,32 @@ with DAG(
     )
 
     t1 >> [t2, t3]
+
+with DAG(
+        'experimental',
+        default_args=default_args,
+        description='Experimental DAG',
+        schedule_interval=None,
+        start_date=datetime(2021, 1, 1),
+        tags=['experimental'],
+) as dag:
+
+    t1 = BashOperator(
+        task_id='pwd',
+        bash_command='pwd',
+        executor_config=executor.get_default_executor_config()
+    )
+
+    t2 = BashOperator(
+        task_id='get_ocv2',
+        bash_command='curl -sS https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz | tar xz --directory /usr/local/bin/',
+        executor_config=executor.get_default_executor_config()
+    )
+
+    t3 = BashOperator(
+        task_id='ls_home',
+        bash_command='ls /home/',
+        executor_config=executor.get_default_executor_config()
+    )
+
+    t1 >> t3
