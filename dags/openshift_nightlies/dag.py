@@ -230,8 +230,8 @@ with DAG(
     )
 
     t2 = BashOperator(
-        task_id='get_ocv2',
-        bash_command='curl -sS https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz | tar xz --directory /usr/local/bin/',
+        task_id='get_ocv3',
+        bash_command='oc version',
         executor_config=executor.get_default_executor_config()
     )
 

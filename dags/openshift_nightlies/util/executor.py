@@ -9,7 +9,7 @@ def get_default_executor_config():
                     containers=[
                         k8s.V1Container(
                             name="base",
-                            image="quay.io/keithwhitley4/airflow-ansible:2.1.0",
+                            image="quay.io/ematysek/testrepo",
                             image_pull_policy="Always",
                             volume_mounts=[
                                 get_empty_dir_volume_mount()]
