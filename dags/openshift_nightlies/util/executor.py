@@ -28,7 +28,7 @@ def get_executor_config_with_cluster_access(release: OpenshiftRelease):
                     containers=[
                         k8s.V1Container(
                             name="base",
-                            image="quay.io/keithwhitley4/airflow-ansible:2.1.0",
+                            image="quay.io/ematysek/testrepo",
                             image_pull_policy="Always",
                             env=[
                                 get_kubeadmin_password(release)
